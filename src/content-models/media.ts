@@ -48,3 +48,5 @@ export type Media = ImageMedia | VideoMedia;
  * -------------------------------------------------------------------------- */
 
 export type MediaType = "image" | "video";
+
+export type MediaId = BaseMedia["id"];
