@@ -11,7 +11,7 @@ import type { Media } from "../content-models/media";
 
 /* --------------------------------------------------------------------------
  * Generic loader
- * -------------------------------------------------------------------------- */
+
 
 async function loadJsonFiles<T>(glob: string): Promise<T[]> {
   const modules = import.meta.glob(glob, { eager: true });
@@ -24,22 +24,52 @@ async function loadJsonFiles<T>(glob: string): Promise<T[]> {
   });
 }
 
+* -------------------------------------------------------------------------- */
+
 /* --------------------------------------------------------------------------
  * Public loaders
  * -------------------------------------------------------------------------- */
 
 export async function loadPosts(): Promise<Post[]> {
-  return loadJsonFiles<Post>("/src/content/posts/*.json");
+  const modules = import.meta.glob("/src/content/posts/*.json", { eager: true });
+
+  return Object.values(modules).map((mod: any) => {
+    if (!mod.default) {
+      throw new Error("Content file missing default export");
+    }
+    return mod.default as Post;
+  });
 }
 
 export async function loadProjects(): Promise<Project[]> {
-  return loadJsonFiles<Project>("/src/content/projects/*.json");
+    const modules = import.meta.glob("/src/content/project/*.json", { eager: true });
+
+  return Object.values(modules).map((mod: any) => {
+    if (!mod.default) {
+      throw new Error("Content file missing default export");
+    }
+    return mod.default as Project;
+  });
 }
 
 export async function loadAlbums(): Promise<Album[]> {
-  return loadJsonFiles<Album>("/src/content/albums/*.json");
+    const modules = import.meta.glob("/src/content/albums/*.json", { eager: true });
+
+  return Object.values(modules).map((mod: any) => {
+    if (!mod.default) {
+      throw new Error("Content file missing default export");
+    }
+    return mod.default as Album;
+  });
 }
 
 export async function loadMedia(): Promise<Media[]> {
-  return loadJsonFiles<Media>("/src/content/media/*.json");
+    const modules = import.meta.glob("/src/content/media/*.json", { eager: true });
+
+  return Object.values(modules).map((mod: any) => {
+    if (!mod.default) {
+      throw new Error("Content file missing default export");
+    }
+    return mod.default as Media;
+  });
 }

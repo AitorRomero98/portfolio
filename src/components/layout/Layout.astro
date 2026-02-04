@@ -1,0 +1,12 @@
+---
+interface Props {
+  as?: "main" | "section" | "div";
+}
+
+const { as = "main" } = Astro.props;
+const Tag = as;
+---
+
+<Tag class="layout">
+  <slot />
+</Tag>

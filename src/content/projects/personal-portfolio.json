@@ -1,0 +1,36 @@
+{
+  "id": "project-001",
+  "slug": "personal-portfolio",
+  "title": "Personal Portfolio Platform",
+  "description": "A content-first personal space designed to replace reliance on social media.",
+  "status": "active",
+  "createdAt": "2026-01-15T09:00:00Z",
+  "entries": [
+    {
+      "id": "entry-001",
+      "title": "Initial idea",
+      "createdAt": "2026-01-15T09:00:00Z",
+      "blocks": [
+        {
+          "type": "text",
+          "content": "I want a place where I can publish continuously without fighting timelines or engagement metrics."
+        }
+      ]
+    },
+    {
+      "id": "entry-002",
+      "title": "First wireframes",
+      "createdAt": "2026-02-01T14:30:00Z",
+      "blocks": [
+        {
+          "type": "gallery",
+          "albumId": "homepage-wireframes"
+        },
+        {
+          "type": "text",
+          "content": "Exploring a content-first homepage where posts and project updates coexist."
+        }
+      ]
+    }
+  ]
+}

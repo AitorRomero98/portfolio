@@ -1,0 +1,14 @@
+---
+import type { BaseFeedItem } from "../../lib/feed-builder";
+import FeedItem from "./FeedItem.astro";
+
+interface Props {
+    items: BaseFeedItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="feed">
+    {items.map((item) => <FeedItem item={item} />)}
+</section>
