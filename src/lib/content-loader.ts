@@ -62,14 +62,3 @@ export async function loadAlbums(): Promise<Album[]> {
     return mod.default as Album;
   });
 }
-
-export async function loadMedia(): Promise<Media[]> {
-    const modules = import.meta.glob("/src/content/media/*.json", { eager: true });
-
-  return Object.values(modules).map((mod: any) => {
-    if (!mod.default) {
-      throw new Error("Content file missing default export");
-    }
-    return mod.default as Media;
-  });
-}

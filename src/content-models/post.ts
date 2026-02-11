@@ -2,31 +2,51 @@
  * Post
  * ============================================================================
  * A Post is the atomic, publishable unit of content.
- * Posts appear in feeds and may also be used as Project entries.
+ * Posts appear in feeds and may also be used as Project entries and Album entries.
  */
 
-import type { Block } from "./block";
 
 /* --------------------------------------------------------------------------
- * Visibility
+ * Visibility:
+    -public: everyone can see
+    -private: only you can see
+    -restricted: restricted to the people you choose
  * -------------------------------------------------------------------------- */
 
-export type PostVisibility = "public" | "private";
+export type PostVisibility = "public" | "private" | "restricted";
+
+/* --------------------------------------------------------------------------
+ * Type
+ * -------------------------------------------------------------------------- */
+
+export type PostType = "text" | "media";
 
 /* --------------------------------------------------------------------------
  * Post
  * -------------------------------------------------------------------------- */
 
 export interface Post {
+  type: PostType;
   id: string;
   slug: string;
 
-  title?: string;
-  blocks: Block[];
+  title?: string; 
+  tags?: string[];
 
-  tags: string[];
   visibility: PostVisibility;
 
   createdAt: string;
   updatedAt?: string;
 }
+
+export interface MediaPost extends Post{
+  type: "media";
+  source: string;
+  caption?: string;
+}
+
+export interface TextPost extends Post{
+  type: "text";
+  content: string; //Markdown
+}
+

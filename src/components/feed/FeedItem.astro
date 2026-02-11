@@ -22,7 +22,8 @@ if (item.type === "post") {
     href = `/posts/${(item as PostFeedItem).slug}`;
 } else {
     const projectItem = item as ProjectEntryFeedItem;
-    href = `/projects/${projectItem.projectSlug}#${projectItem.entryId}`;
+    href = `/projects/${projectItem.projectSlug}`;
+    //href = `/projects/${projectItem.projectSlug}#${projectItem.entryId}`;
 }
 ---
 

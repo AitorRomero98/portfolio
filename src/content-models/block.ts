@@ -2,7 +2,6 @@
  * Block Types
  * ============================================================================
  * Blocks are ordered content units that make up a Post or Project entry.
- * They are framework-agnostic and serializable.
  */
 
 /* --------------------------------------------------------------------------
@@ -10,7 +9,6 @@
  * -------------------------------------------------------------------------- */
 
 export interface BaseBlock {
-  id: string;
   type: BlockType;
 }
 
@@ -24,32 +22,13 @@ export interface TextBlock extends BaseBlock {
 }
 
 /* --------------------------------------------------------------------------
- * Image
+ * Media
  * -------------------------------------------------------------------------- */
 
-export interface ImageBlock extends BaseBlock {
-  type: "image";
+export interface MediaBlock extends BaseBlock {
+  type: "media";
   mediaId: string;
-  caption?: string;
-}
-
-/* --------------------------------------------------------------------------
- * Video
- * -------------------------------------------------------------------------- */
-
-export interface VideoBlock extends BaseBlock {
-  type: "video";
-  mediaId: string;
-  caption?: string;
-}
-
-/* --------------------------------------------------------------------------
- * Gallery
- * -------------------------------------------------------------------------- */
-
-export interface GalleryBlock extends BaseBlock {
-  type: "gallery";
-  mediaIds: string[];
+  src: string; // relative or absolute path
   caption?: string;
 }
 
@@ -59,9 +38,7 @@ export interface GalleryBlock extends BaseBlock {
 
 export type Block =
   | TextBlock
-  | ImageBlock
-  | VideoBlock
-  | GalleryBlock;
+  | MediaBlock;
 
 /* --------------------------------------------------------------------------
  * Block Type Enum
@@ -69,6 +46,4 @@ export type Block =
 
 export type BlockType =
   | "text"
-  | "image"
-  | "video"
-  | "gallery";
+  | "media";

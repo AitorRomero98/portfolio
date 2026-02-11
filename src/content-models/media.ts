@@ -1,28 +1,27 @@
 /* ============================================================================
- * Media Types
+ * Media Blocks
  * ============================================================================
  * Media represents reusable assets (images, videos).
  * Media is referenced by blocks, albums, and other content.
  */
 
+import type { MediaBlock } from "./block";
+
+
 /* --------------------------------------------------------------------------
  * Base
  * -------------------------------------------------------------------------- */
 
-export interface BaseMedia {
-  id: string;
-  type: MediaType;
-  src: string; // relative or absolute path
-  createdAt: string;
-  alt?: string;
+export interface BaseMedia extends MediaBlock{
+  format: MediaFormat;
 }
 
 /* --------------------------------------------------------------------------
  * Image
  * -------------------------------------------------------------------------- */
 
-export interface ImageMedia extends BaseMedia {
-  type: "image";
+export interface ImageBlock extends BaseMedia {
+  format: "image";
   width?: number;
   height?: number;
 }
@@ -31,9 +30,8 @@ export interface ImageMedia extends BaseMedia {
  * Video
  * -------------------------------------------------------------------------- */
 
-export interface VideoMedia extends BaseMedia {
-  type: "video";
-  poster?: string;
+export interface VideoBlock extends BaseMedia {
+  format: "video";
   duration?: number; // seconds
 }
 
@@ -41,12 +39,12 @@ export interface VideoMedia extends BaseMedia {
  * Union
  * -------------------------------------------------------------------------- */
 
-export type Media = ImageMedia | VideoMedia;
+export type Media = ImageBlock | VideoBlock;
 
 /* --------------------------------------------------------------------------
  * Media Type Enum
  * -------------------------------------------------------------------------- */
 
-export type MediaType = "image" | "video";
+export type MediaFormat = "image" | "video";
 
-export type MediaId = BaseMedia["id"];
+export type MediaId = MediaBlock["mediaId"];
