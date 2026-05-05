@@ -4,61 +4,58 @@
  * Composes heterogeneous content into a unified, ordered feed.
  */
 
-import type { Block } from "../content-models/block";
-import type { Post } from "../content-models/post";
-import type { Project, ProjectEntry } from "../content-models/project";
+import type { MediaPost, TextPost } from "../content-models/post";
 
-/* --------------------------------------------------------------------------
- * Feed item types
- * -------------------------------------------------------------------------- */
-
-export interface BaseFeedItem {
-    id: string;
-    type: "post" | "project-entry";
-    createdAt: string;
-    blocks: Block[];
-}
-
-export interface PostFeedItem extends BaseFeedItem {
-    type: "post";
-    slug: string;
-}
-
-export interface ProjectEntryFeedItem extends BaseFeedItem {
-    type: "project-entry";
-    projectSlug: string;
-    entryId: string;
-}
 
 /* --------------------------------------------------------------------------
  * Feed builder
  * -------------------------------------------------------------------------- */
 
 export function buildFeed(
-    posts: Post[],
-    projects: Project[]
-): BaseFeedItem[] {
-    const postItems: PostFeedItem[] = posts.map((post) => ({
+    textPost: TextPost[],
+    mediaPost: MediaPost[]
+) {
+    const textItems: TextPost[] = textPost.map((post) => ({
         id: post.id,
-        type: "post",
         slug: post.slug,
+        visibility: post.visibility,
         createdAt: post.createdAt,
-        blocks: post.blocks
+        type: "text",
+        content: post.content,
+        title: post.title
     }));
 
-    const projectEntryItems: ProjectEntryFeedItem[] = projects.flatMap(
-        (project) =>
-            project.entries.map((entry) => ({
-                id: `${project.id}:${entry.id}`,
-                type: "project-entry",
-                projectSlug: project.slug,
-                entryId: entry.id,
-                createdAt: entry.createdAt,
-                blocks: entry.blocks
-            }))
-    );
+    const mediaItems: MediaPost[]=mediaPost.map((post)=> ({
+        id: post.id,
+        slug: post.slug,
+        visibility: post.visibility,
+        createdAt: post.createdAt,
+        type: "media",
+        source: post.source,
+        title: post.title
+    }))
 
-    return [...postItems, ...projectEntryItems].sort(
+
+    /* --------------------------------------------------------------------------
+    
+     * Not used yet
+    
+        const projectEntryItems: ProjectEntryFeedItem[] = projects.flatMap(
+            (project) =>
+                project.entries.map((entry) => ({
+                    id: `${project.id}:${entry.id}`,
+                    type: "project-entry",
+                    projectSlug: project.slug,
+                    entryId: entry.id,
+                    createdAt: entry.createdAt,
+                    blocks: entry.blocks
+                }))
+        );
+    
+     * -------------------------------------------------------------------------- */
+
+
+    return [...textItems, ...mediaItems].sort(
         (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );

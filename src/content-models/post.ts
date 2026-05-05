@@ -16,7 +16,9 @@
 export type PostVisibility = "public" | "private" | "restricted";
 
 /* --------------------------------------------------------------------------
- * Type
+ * Type:
+    -text
+    -media
  * -------------------------------------------------------------------------- */
 
 export type PostType = "text" | "media";
@@ -39,14 +41,12 @@ export interface Post {
   updatedAt?: string;
 }
 
+export interface TextPost extends Post{
+  type: "text";
+  content: string; //Markdown
+}
 export interface MediaPost extends Post{
   type: "media";
   source: string;
   caption?: string;
 }
-
-export interface TextPost extends Post{
-  type: "text";
-  content: string; //Markdown
-}
-

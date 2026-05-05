@@ -1,0 +1,8 @@
+{
+  "type":"text",
+  "id": "post-001",
+  "slug": "hello-world",
+  "createdAt": "2026-02-02T10:00:00Z",
+  "title": "First post",
+  "content": "This is the first post on my new personal space. No algorithms, no feeds — just things I care about."
+}

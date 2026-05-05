@@ -4,7 +4,7 @@
  * An Album is an ordered collection of media items.
  */
 
-import type { MediaId } from "./media";
+import type { MediaPost } from "./post";
 
 /* --------------------------------------------------------------------------
  * Album
@@ -17,7 +17,7 @@ export interface Album {
   title?: string;
   description?: string;
 
-  media: MediaId[];
+  media: MediaPost["source"][];
 
   createdAt: string;
   updatedAt?: string;

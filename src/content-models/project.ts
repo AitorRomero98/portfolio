@@ -4,7 +4,7 @@
  * A Project is a long-lived container for structured progress entries.
  */
 
-import type { Block } from "./block";
+import type { Post } from "./post";
 
 /* --------------------------------------------------------------------------
  * Project Entry
@@ -16,7 +16,7 @@ export interface ProjectEntry {
   title?: string;
   summary?: string;
 
-  blocks: Block[];
+  blocks: Post[];
 
   createdAt: string;
   updatedAt?: string;

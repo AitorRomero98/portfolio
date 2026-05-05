@@ -3,26 +3,19 @@ import BaseLayout from "../components/layout/BaseLayout.astro";
 import Layout from "../components/layout/Layout.astro";
 import Feed from "../components/feed/Feed.astro";
 
-import { loadPosts, loadProjects } from "../lib/content-loader";
+import { loadTextPosts, loadMediaPosts, loadProjects } from "../lib/content-loader";
 import { buildFeed } from "../lib/feed-builder";
 
 // Load content directly
-const posts = await loadPosts();
-const projects = await loadProjects();
+const textposts = await loadTextPosts();
+const mediaposts = await loadMediaPosts();
 
 // Build the feed (mix posts + project entries)
-const feedItems = buildFeed(posts, projects);
+const feedItems = buildFeed(textposts, mediaposts);
 ---
 
 <BaseLayout title="Home" description="Latest updates from my personal space">
   <Layout>
-    <!-- Optional top section for mood or introduction -->
-    <section class="intro">
-      <h1>Welcome to my personal space</h1>
-      <p>This is a content-first homepage where posts and project updates coexist.</p>
-    </section>
-
-    <!-- Feed of all content -->
     <Feed items={feedItems} />
   </Layout>
 </BaseLayout>
