@@ -4,7 +4,7 @@
  * Composes heterogeneous content into a unified, ordered feed.
  */
 
-import type { MediaPost, TextPost } from "../content-models/post";
+import type { TextPost } from "../content-models/textpost";
 
 
 /* --------------------------------------------------------------------------
@@ -13,28 +13,15 @@ import type { MediaPost, TextPost } from "../content-models/post";
 
 export function buildFeed(
     textPost: TextPost[],
-    mediaPost: MediaPost[]
 ) {
     const textItems: TextPost[] = textPost.map((post) => ({
         id: post.id,
         slug: post.slug,
         visibility: post.visibility,
         createdAt: post.createdAt,
-        type: "text",
         content: post.content,
         title: post.title
     }));
-
-    const mediaItems: MediaPost[]=mediaPost.map((post)=> ({
-        id: post.id,
-        slug: post.slug,
-        visibility: post.visibility,
-        createdAt: post.createdAt,
-        type: "media",
-        source: post.source,
-        title: post.title
-    }))
-
 
     /* --------------------------------------------------------------------------
     
@@ -55,7 +42,7 @@ export function buildFeed(
      * -------------------------------------------------------------------------- */
 
 
-    return [...textItems, ...mediaItems].sort(
+    return [...textItems].sort(
         (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );

@@ -1,21 +1,17 @@
 ---
-import BaseLayout from "../components/layout/BaseLayout.astro";
-import Layout from "../components/layout/Layout.astro";
-import Feed from "../components/feed/Feed.astro";
 
-import { loadTextPosts, loadMediaPosts, loadProjects } from "../lib/content-loader";
-import { buildFeed } from "../lib/feed-builder";
-
-// Load content directly
-const textposts = await loadTextPosts();
-const mediaposts = await loadMediaPosts();
-
-// Build the feed (mix posts + project entries)
-const feedItems = buildFeed(textposts, mediaposts);
 ---
 
-<BaseLayout title="Home" description="Latest updates from my personal space">
-  <Layout>
-    <Feed items={feedItems} />
-  </Layout>
-</BaseLayout>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<h1>Astro</h1>
+	</body>
+</html>

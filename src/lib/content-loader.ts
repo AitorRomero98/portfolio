@@ -4,7 +4,7 @@
  * Loads and validates raw content files into typed domain models.
  */
 
-import type { MediaPost, TextPost } from "../content-models/post";
+import type { TextPost } from "../content-models/textpost";
 import type { Project } from "../content-models/project";
 import type { Album } from "../content-models/album";
 
@@ -30,7 +30,7 @@ async function loadJsonFiles<T>(glob: string): Promise<T[]> {
  * -------------------------------------------------------------------------- */
 
 export async function loadTextPosts(): Promise<TextPost[]> {
-  const modules = import.meta.glob("/src/content/posts/text/*.json", { eager: true });
+  const modules = import.meta.glob("/src/content/textposts/*.json", { eager: true });
 
   return Object.values(modules).map((mod: any) => {
     if (!mod.default) {
@@ -40,19 +40,8 @@ export async function loadTextPosts(): Promise<TextPost[]> {
   });
 }
 
-export async function loadMediaPosts(): Promise<MediaPost[]> {
-  const modules = import.meta.glob("/src/content/posts/media/*.json", { eager: true });
-
-  return Object.values(modules).map((mod: any) => {
-    if (!mod.default) {
-      throw new Error("Content file missing default export");
-    }
-    return mod.default as MediaPost;
-  });
-}
-
 export async function loadProjects(): Promise<Project[]> {
-    const modules = import.meta.glob("/src/content/project/*.json", { eager: true });
+    const modules = import.meta.glob("/src/content/projects/*.json", { eager: true });
 
   return Object.values(modules).map((mod: any) => {
     if (!mod.default) {
